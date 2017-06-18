@@ -1,3 +1,1 @@
 xserver-xorg-video-fbdev xserver-xorg xinit xserver-xorg-video-fbturbo
-gvfs-backends gvfs-fuse
-gnome-themes-standard-data gnome-icon-theme
