@@ -4,9 +4,8 @@ python pkg-config
 v4l-utils
 lua5.1
 hardlink ca-certificates curl
-fake-hwclock ntp usbutils
+ntp usbutils
 libraspberrypi-dev libfreetype6-dev
 dosfstools
 dphys-swapfile
 raspberrypi-sys-mods
-apt-transport-https

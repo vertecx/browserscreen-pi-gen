@@ -10,7 +10,6 @@ install -m 644 files/50raspi				${ROOTFS_DIR}/etc/apt/apt.conf.d/
 install -m 644 files/console-setup   			${ROOTFS_DIR}/etc/default/
 
 on_chroot << EOF
-systemctl disable hwclock.sh
 systemctl enable resize2fs_once
 EOF
 
