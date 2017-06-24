@@ -1,0 +1,2 @@
+address=https://www.google.com/
+timezone=Europe/Stockholm
