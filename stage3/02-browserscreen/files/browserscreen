@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. /boot/browserscreen.txt
+
+timedatectl set-timezone $timezone
+hostname $hostname
+echo $hostname > /etc/hostname
+echo "server $ntp iburst" > /etc/ntp.hosts

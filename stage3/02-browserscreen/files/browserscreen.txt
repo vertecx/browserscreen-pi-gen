@@ -1,2 +1,5 @@
 address=https://www.google.com/
 timezone=Europe/Stockholm
+hostname=browserscreen
+ntp=192.168.5.10
+
