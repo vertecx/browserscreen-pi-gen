@@ -6,5 +6,4 @@ hardlink ca-certificates curl
 ntp usbutils
 libraspberrypi-dev libfreetype6-dev
 dosfstools
-dphys-swapfile
 raspberrypi-sys-mods
