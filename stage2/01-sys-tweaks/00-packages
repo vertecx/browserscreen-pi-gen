@@ -1,4 +1,4 @@
-locales less fbset sudo psmisc strace module-init-tools ed crda
+less fbset sudo psmisc strace module-init-tools ed crda
 console-setup keyboard-configuration debconf-utils parted unzip
 python pkg-config
 v4l-utils
