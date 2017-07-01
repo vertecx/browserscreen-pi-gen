@@ -18,7 +18,7 @@
  else
      PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
  fi
-@@ -79,9 +79,9 @@
+@@ -79,9 +79,10 @@
      #alias dir='dir --color=auto'
      #alias vdir='vdir --color=auto'
  
@@ -28,6 +28,7 @@
 +    alias grep='grep --color=auto'
 +    alias fgrep='fgrep --color=auto'
 +    alias egrep='egrep --color=auto'
++    alias ll='ls -lA'
  fi
  
  # colored GCC warnings and errors
