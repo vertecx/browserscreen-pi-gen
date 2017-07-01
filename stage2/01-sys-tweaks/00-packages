@@ -1,9 +1,6 @@
-less fbset sudo psmisc strace module-init-tools ed crda
-console-setup keyboard-configuration debconf-utils parted unzip
-python pkg-config
-v4l-utils
-hardlink ca-certificates curl
-ntp usbutils
-libraspberrypi-dev libfreetype6-dev
+less fbset sudo psmisc module-init-tools crda
+console-setup keyboard-configuration debconf-utils unzip
+hardlink
+ntp
 dosfstools
 raspberrypi-sys-mods
