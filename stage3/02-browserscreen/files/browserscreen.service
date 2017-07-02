@@ -1,7 +1,6 @@
 [Unit]
 Description=BrowserScreen configuration
 Before=network-pre.target
-Wants=network-pre.target
 
 [Service]
 Type=oneshot

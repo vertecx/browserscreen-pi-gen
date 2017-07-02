@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Only mount the overlay if root is read only
+if [ ! -w / ]; then
+	# Wait for the tmpfs /overlay filesystem to become writable
+	while [ ! -w /overlay ]; do
+		sleep 1
+	done
+
+	# Create required directories and mount the overlay filesystem
+	mkdir -p /overlay$1/upper
+	mkdir -p /overlay$1/work
+
+	mount -t overlay overlay -o lowerdir=$1,upperdir=/overlay$1/upper,workdir=/overlay$1/work $1	
+fi

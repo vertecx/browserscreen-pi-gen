@@ -1,0 +1,12 @@
+--- jessie-stage3.orig/rootfs/etc/fstab
++++ jessie-stage3/rootfs/etc/fstab
+@@ -1,3 +1,7 @@
+ proc            /proc           proc    defaults          0       0
+-BOOTDEV  /boot           vfat    defaults          0       2
+-ROOTDEV  /               ext4    defaults,noatime  0       1
++BOOTDEV  /boot           vfat    defaults,ro          0       2
++ROOTDEV  /               ext4    defaults,noatime,ro  0       1
++tmpfs    /overlay        tmpfs   defaults,noatime     0       0
++mount.roverlay /etc      fuse    defaults             0       0
++mount.roverlay /home     fuse    defaults             0       0
++mount.roverlay /var      fuse    defaults             0       0

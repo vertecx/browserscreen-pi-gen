@@ -30,10 +30,6 @@ rm -f ${ROOTFS_DIR}/var/lib/dpkg/*-old
 
 rm -f ${ROOTFS_DIR}/usr/share/icons/*/icon-theme.cache
 
-rm -f ${ROOTFS_DIR}/var/lib/dbus/machine-id
-
-true > ${ROOTFS_DIR}/etc/machine-id
-
 ln -nsf /proc/mounts ${ROOTFS_DIR}/etc/mtab
 
 for _FILE in $(find ${ROOTFS_DIR}/var/log/ -type f); do
