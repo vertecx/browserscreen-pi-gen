@@ -5,15 +5,12 @@
 # Set timezone
 timedatectl set-timezone $timezone
 
+# Set NTP server(s)
+echo "Servers=$ntp" >> /etc/systemd/timesyncd.conf
+timedatectl set-ntp true
+
 # Set hostname
 old_hostname=`hostname`
 hostname $hostname
 echo $hostname > /etc/hostname
 sed -i "s/127.0.1.1.*$old_hostname/127.0.1.1\t$hostname/g" /etc/hosts
-
-# Set NTP server(s)
-servers=$(echo $ntp | tr ',' '\n')
-for server in $servers
-do
-	echo "server $server iburst" >> /etc/ntp.hosts
-done
