@@ -1,5 +1,13 @@
 #!/bin/bash -e
 
+rm -f ${ROOTFS_DIR}/etc/cron.daily/apt
+rm -f ${ROOTFS_DIR}/etc/cron.daily/aptitude
+rm -f ${ROOTFS_DIR}/etc/cron.daily/bsdmainutils
+rm -f ${ROOTFS_DIR}/etc/cron.daily/dpkg
+rm -f ${ROOTFS_DIR}/etc/cron.daily/man-db
+rm -f ${ROOTFS_DIR}/etc/cron.daily/passwd
+rm -f ${ROOTFS_DIR}/etc/cron.weekly/man-db
+
 install -m 644 files/browserscreen.txt ${ROOTFS_DIR}/boot/
 install -m 644 files/.xsession	${ROOTFS_DIR}/home/pi/
 install -m 755 files/mount.roverlay	${ROOTFS_DIR}/usr/local/sbin/
