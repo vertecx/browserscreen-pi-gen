@@ -1,0 +1,40 @@
+{
+    "alternate_error_pages": {
+        "enabled": false
+    },
+    "autofill": {
+        "enabled": false
+    },
+    "browser": {
+        "pepper_flash_settings_enabled": true
+    },
+    "credentials_enable_service": false,
+    "custom_handlers": {
+        "enabled": false
+    },
+    "local_discovery": {
+        "notifications_enabled": false
+    },
+    "net": {
+        "network_prediction_options": 2
+    },
+    "profile": {
+        "default_content_setting_values": {
+            "automatic_downloads": 2,
+            "geolocation": 2,
+            "media_stream_camera": 2,
+            "media_stream_mic": 2,
+            "midi_sysex": 2,
+            "notifications": 2,
+            "plugins": 1,
+            "ppapi_broker": 2
+        },
+        "password_manager_enabled": false
+    },
+    "search": {
+        "suggest_enabled": false
+    },
+    "translate": {
+        "enabled": false
+    }
+}
