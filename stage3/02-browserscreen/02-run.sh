@@ -27,4 +27,7 @@ systemctl disable sshswitch
 ln -s /dev/null /lib/systemd/system/display-manager.service
 
 mkdir /overlay
+
+touch /var/lib/systemd/clock
+chown systemd-timesync:systemd-timesync /var/lib/systemd/clock
 EOF
