@@ -2,4 +2,7 @@ address=https://www.google.com/
 timezone=Europe/Stockholm
 hostname=browserscreen
 ntp="192.168.5.10 0.se.pool.ntp.org 1.se.pool.ntp.org"
+wifi_network='
+'
+wifi_country=SE
 hide_cursor=1

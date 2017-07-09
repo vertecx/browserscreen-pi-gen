@@ -13,4 +13,13 @@ timedatectl set-ntp true
 old_hostname=`hostname`
 hostname $hostname
 echo $hostname > /etc/hostname
-sed -i "s/127.0.1.1.*$old_hostname/127.0.1.1\t$hostname/g" /etc/hosts
+sed -i "s/127.0.1.1.*$old_hostname/127.0.1.1\t$hostname/" /etc/hosts
+
+# Set WiFi settings
+if [ -z "$wifi_network" ]; then
+	rfkill wifi
+else
+	sed -i "s/GB/$wifi_country/" /etc/wpa_supplicant/wpa_supplicant.conf
+	echo "network={$wifi_network}" >> /etc/wpa_supplicant/wpa_supplicant.conf
+	wpa_cli reconfigure
+fi
