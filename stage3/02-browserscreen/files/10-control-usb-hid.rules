@@ -1,0 +1,1 @@
+SUBSYSTEMS=="usb", DRIVERS=="usbhid", ACTION=="add", PROGRAM=="/usr/local/bin/hidcontroller", ATTR{authorized}="0"

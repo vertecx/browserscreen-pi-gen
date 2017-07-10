@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ ! -f /boot/browserscreen.txt ]; then
+	mount /boot
+fi
+
+. /boot/browserscreen.txt
+
+if [ $disable_usb_hid -eq 0 ]; then
+	exit 1
+fi
+
+exit 0

@@ -6,3 +6,4 @@ wifi_network='
 '
 wifi_country=SE
 hide_cursor=1
+disable_usb_hid=1
