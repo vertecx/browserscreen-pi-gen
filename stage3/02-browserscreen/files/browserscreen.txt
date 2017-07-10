@@ -1,4 +1,10 @@
+# Address of the web site to display on screen.
 address=http://www.ptrdata.com/randomdashboard/
+
+# Extra arguments to pass to Chromium. If your web site uses a self-signed
+# certificate, you should pass --ignore-certificate-errors.
+chromium_args=''
+
 timezone=Europe/Stockholm
 hostname=browserscreen
 ntp="192.168.5.10 0.se.pool.ntp.org 1.se.pool.ntp.org"
