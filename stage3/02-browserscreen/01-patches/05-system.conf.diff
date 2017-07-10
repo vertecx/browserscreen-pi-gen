@@ -1,0 +1,11 @@
+--- jessie-stage3.orig/rootfs/etc/systemd/system.conf
++++ jessie-stage3/rootfs/etc/systemd/system.conf
+@@ -18,7 +18,7 @@
+ #CrashChVT=1
+ #CPUAffinity=1 2
+ #JoinControllers=cpu,cpuacct net_cls,net_prio
+-#RuntimeWatchdogSec=0
++RuntimeWatchdogSec=10
+ #ShutdownWatchdogSec=10min
+ #CapabilityBoundingSet=
+ #SystemCallArchitectures=
