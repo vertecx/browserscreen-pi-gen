@@ -14,6 +14,9 @@ install -m 755 files/mount.roverlay	${ROOTFS_DIR}/usr/local/sbin/
 install -m 755 files/browserscreen	${ROOTFS_DIR}/usr/local/bin/
 install -m 644 files/browserscreen.service	${ROOTFS_DIR}/etc/systemd/system/
 install -m 644 files/master_preferences	${ROOTFS_DIR}/usr/lib/chromium-browser/
+install -m 644 files/lsb-release	${ROOTFS_DIR}/etc/lsb-release
+
+sed -i "s/%DATE%/$(date +%Y.%m.%d)/" ${ROOTFS_DIR}/etc/lsb-release
 
 on_chroot << EOF
 chown pi:pi /home/pi/.xsession
