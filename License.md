@@ -1,4 +1,5 @@
 Copyright (c) 2015 Raspberry Pi (Trading) Ltd.
+              2017 Petter Jönsson
 
 All rights reserved.
 
