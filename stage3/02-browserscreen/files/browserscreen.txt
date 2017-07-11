@@ -5,7 +5,13 @@ address=http://www.ptrdata.com/randomdashboard/
 # certificate, you should pass --ignore-certificate-errors.
 chromium_args=''
 
+# Locale used for date, time and number formatting in Chromium.
+locale=sv_SE.UTF-8
+
+# Time zone in tz database format.
+# See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone=Europe/Stockholm
+
 hostname=browserscreen
 ntp="192.168.5.10 0.se.pool.ntp.org 1.se.pool.ntp.org"
 wifi_network='
