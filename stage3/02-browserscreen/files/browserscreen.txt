@@ -12,10 +12,40 @@ locale=sv_SE.UTF-8
 # See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone=Europe/Stockholm
 
-hostname=browserscreen
-ntp="192.168.5.10 0.se.pool.ntp.org 1.se.pool.ntp.org"
-wifi_network='
-'
+# Hostname of the Browser Screen computer. %m will be replaced with the
+# hexadecimal representation of the last three octets of the wired network
+# adapters MAC address.
+hostname=browserscreen%m
+
+# Time server(s) used to synchronize the computer clock.
+ntp='0.debian.pool.ntp.org 1.debian.pool.ntp.org 2.debian.pool.ntp.org'
+
+# To control which Wi-Fi channels can be used, specify the ISO 3166-1 alpha-2
+# code of the country the computer will operate in.
 wifi_country=SE
+
+# Settings required for connecting to a Wi-Fi network. Settings will be
+# inserted into a network block in wpa_supplicant.conf. Examples:
+#
+# WPA-PSK:
+# wifi_network='
+# 	ssid="MyWifiNetwork"
+# 	psk="SuperSecretKey123"
+# '
+#
+# No encryption:
+# wifi_network='
+# 	ssid="PublicWifi"
+# 	key_mgmt=NONE
+# '
+#
+# Search the Internet for wpa_supplicant.conf to find more advanced examples
+# like WPA-EAP and EAP-PEAP.
+wifi_network=''
+
+# Control visibility of the mouse cursor (0 = visible, 1 = hidden).
 hide_cursor=1
+
+# Control whether attached USB HID devices, mainly keyboards and mice, should
+# be usable (0 = enabled, 1 = disabled).
 disable_usb_hid=1

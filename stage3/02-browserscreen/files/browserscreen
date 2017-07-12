@@ -11,6 +11,10 @@ timedatectl set-ntp true
 
 # Set hostname
 old_hostname=`hostname`
+if [ -z "${hostname##*%m*}" ]; then
+	mac=`ifconfig eth0 | head -n 1 | grep -o '[0-9a-f]' | tail -n 6 | tr -d '\n'`
+	hostname=`echo $hostname | sed "s/%m/$mac/g"`
+fi
 hostname $hostname
 echo $hostname > /etc/hostname
 sed -i "s/127.0.1.1.*$old_hostname/127.0.1.1\t$hostname/" /etc/hosts
