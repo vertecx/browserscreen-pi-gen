@@ -11,5 +11,5 @@ if [ ! -w / ]; then
 	mkdir -p /overlay$1/upper
 	mkdir -p /overlay$1/work
 
-	mount -t overlay overlay -o lowerdir=$1,upperdir=/overlay$1/upper,workdir=/overlay$1/work $1	
+	mount -t overlay overlay -o lowerdir=$1,upperdir=/overlay$1/upper,workdir=/overlay$1/work $1
 fi

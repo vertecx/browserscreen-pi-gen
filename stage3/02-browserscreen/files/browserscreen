@@ -2,26 +2,29 @@
 
 . /boot/browserscreen.txt
 
-# Set timezone
+# === Set timezone
 timedatectl set-timezone $timezone
 
-# Set NTP server(s)
+# === Set NTP server(s) and enable time synchronization
 echo "Servers=$ntp" >> /etc/systemd/timesyncd.conf
 timedatectl set-ntp true
 
-# Set hostname
+# === Set hostname
 old_hostname=`hostname`
+
 if [ -z "${hostname##*%m*}" ]; then
+	# Use the last three octets of the MAC address to generate a unique hostname.
 	mac=`ifconfig eth0 | head -n 1 | grep -o '[0-9a-f]' | tail -n 6 | tr -d '\n'`
 	hostname=`echo $hostname | sed "s/%m/$mac/g"`
 fi
+
 hostname $hostname
 echo $hostname > /etc/hostname
 sed -i "s/127.0.1.1.*$old_hostname/127.0.1.1\t$hostname/" /etc/hosts
 
-# Set WiFi settings
+# === Set WiFi settings
 if [ -z "$wifi_network" ]; then
-	rfkill wifi
+	rfkill block wifi
 else
 	sed -i "s/GB/$wifi_country/" /etc/wpa_supplicant/wpa_supplicant.conf
 	echo "network={$wifi_network}" >> /etc/wpa_supplicant/wpa_supplicant.conf
