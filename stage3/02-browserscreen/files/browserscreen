@@ -28,5 +28,12 @@ if [ -z "$wifi_network" ]; then
 else
 	sed -i "s/GB/$wifi_country/" /etc/wpa_supplicant/wpa_supplicant.conf
 	echo "network={$wifi_network}" >> /etc/wpa_supplicant/wpa_supplicant.conf
+
+	# Workaround for Raspberry Pi 1. wpa_cli throws "Failed to connect to non-global ctrl_ifname: (null) error: No such file or directory" if called without sleeping first.
+	uname -m | grep armv6 > /dev/null
+	if [ $? -eq 0 ]; then
+		sleep 5
+	fi
+
 	wpa_cli reconfigure
 fi
