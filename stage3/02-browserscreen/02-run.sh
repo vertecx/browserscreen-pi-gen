@@ -15,6 +15,15 @@ install -m 644 files/lsb-release	${ROOTFS_DIR}/etc/
 
 sed -i "s/%DATE%/$(date +%Y.%m.%d)/" ${ROOTFS_DIR}/etc/lsb-release
 
+rm -f ${ROOTFS_DIR}/usr/share/chromium-browser/*.json
+
+install -d ${ROOTFS_DIR}/usr/local/share/browserscreen-extension
+install -m 644 files/browserscreen-extension/background.js	${ROOTFS_DIR}/usr/local/share/browserscreen-extension/
+install -m 644 files/browserscreen-extension/icon16.png	${ROOTFS_DIR}/usr/local/share/browserscreen-extension/
+install -m 644 files/browserscreen-extension/icon48.png	${ROOTFS_DIR}/usr/local/share/browserscreen-extension/
+install -m 644 files/browserscreen-extension/icon128.png	${ROOTFS_DIR}/usr/local/share/browserscreen-extension/
+install -m 644 files/browserscreen-extension/manifest.json	${ROOTFS_DIR}/usr/local/share/browserscreen-extension/
+
 on_chroot << EOF
 chown pi:pi /home/pi/.xsession
 

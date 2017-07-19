@@ -12,6 +12,23 @@
     "custom_handlers": {
         "enabled": false
     },
+    "extensions": {
+        "settings": {
+            "npmomaknaobioncaoniafiknlfhhlbid": {
+                "granted_permissions": {
+                    "api": [
+                        "tabs",
+                        "webRequest"
+                    ]
+                },
+                "incognito": true,
+                "location": 8,
+                "newAllowFileAccess": false,
+                "path": "/usr/local/share/browserscreen-extension",
+                "state": 1
+            }
+        }
+    },
     "local_discovery": {
         "notifications_enabled": false
     },
@@ -31,13 +48,13 @@
         },
         "password_manager_enabled": false
     },
+    "safebrowsing": {
+        "enabled": false
+    },
     "search": {
         "suggest_enabled": false
     },
     "translate": {
-        "enabled": false
-    },
-    "safebrowsing": {
         "enabled": false
     }
 }

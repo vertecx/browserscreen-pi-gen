@@ -19,4 +19,4 @@ sudo ntpdate -p 1 $ntp
 # Disable screen blanking and power saving.
 xset s off -dpms
 
-LANG=$locale /usr/bin/chromium-browser --kiosk --incognito --noerrdialogs --disable-cloud-import --disable-extensions --disable-infobars --disable-sync --disable-translate --window-position=0,0 --window-size=7000,7000 $chromium_args --app=$address
+LANG=$locale /usr/bin/chromium-browser --kiosk --incognito --noerrdialogs --disable-cloud-import --disable-infobars --disable-sync --disable-translate --load-extension=/usr/local/share/browserscreen-extension --window-position=0,0 --window-size=7000,7000 $chromium_args --app=$address
