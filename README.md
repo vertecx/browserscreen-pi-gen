@@ -1,175 +1,55 @@
-# pi-gen
+# browserscreen-pi-gen
+browserscreen-pi-gen is a tool for building Browser Screen, a highly specialized Raspbian based operating system for Raspberry Pi.
 
-_Tool used to create the raspberrypi.org Raspbian images_
+Browser Screen is built for a single purpose: to display web sites, most likely dashboards, timetables and alike, on large monitors and TV:s.
 
+Browser Screen is designed with several goals in mind:
 
-### TODO
-1. Documentation
+* Easy to install and configure for users with little or no Linux experience. All configuration is done in a text file on the boot partition, easily accessible in Windows.
+* Very low need for user intervention. The web browser automatically recovers from HTTP errors and network disconnects. If the operating systems hangs, it is restarted by the watchdog build into the processor of the Raspberry Pi.
+* Resilience against tampering and environmental issues:
+  * Keyboards and mice are disabled by default.
+  * No open network ports except those required by DHCP.
+  * Read only file systems reduces risk for data corruption on power outages and makes it possible to safely shut down by just pulling power.
 
+## Download
+Prebuild Browser Screen images can be downloaded from the [Releases](https://github.com/vertecx/browserscreen-pi-gen/releases) tab. After the download is complete, follow the instructions in the Install section below.
 
-## Dependencies
+If you want to build your own image, clone the browserscreen-pi-gen repository using Git and then follow the instructions in the Build section.
 
-On Debian-based systems:
+## Build
+browserscreen-pi-gen is a modified version of [pi-gen](https://github.com/RPi-Distro/pi-gen), the software used to build the official Raspbian images for Raspberry Pi.
 
-```bash
-apt-get install quilt parted realpath qemu-user-static debootstrap zerofree pxz zip \
-dosfstools bsdtar libcap2-bin grep rsync
-```
+The [build instructions](https://github.com/RPi-Distro/pi-gen/blob/dev/README.md) for pi-gen applies to browserscreen-pi-gen as well.
 
-The file `depends` contains a list of tools needed.  The format of this
-package is `<tool>[:<debian-package>]`.
+However, browserscreen-pi-gen does not contain stage4 and stage5, and there should be little reason to export any other stage than stage3.
 
+## Install
+Browser Screen is installed like most other Raspberry Pi operating systems, by writing an image to a SD card using a second computer.
 
-## Config
+See the Raspberry Pi documentation on [Installing operating system images](https://www.raspberrypi.org/documentation/installation/installing-images/) for details.
 
-Upon execution, `build.sh` will source the file `config` in the current
-working directory.  This bash shell fragment is intended to set needed
-environment variables.
+Browser Screen does not support installation through [NOOBS](https://www.raspberrypi.org/documentation/installation/noobs.md).
 
-The following environment variables are supported:
+## Configure
+Browser Screen is configured by editing two text files on the small FAT32 partition used to boot the Raspberry Pi.
 
- * `IMG_NAME` **required** (Default: unset)
+Most settings that need to be customized before Browser Screen is deploy are located inside [browserscreen.txt](https://github.com/vertecx/browserscreen-pi-gen/blob/dev/stage3/02-browserscreen/files/browserscreen.txt). Every setting is documented inside the file.
 
-   The name of the image to build with the current stage directories.  Setting
-   `IMG_NAME=Raspbian` is logical for an unmodified RPi-Distro/pi-gen build,
-   but you should use something else for a customized version.  Export files
-   in stages may add suffixes to `IMG_NAME`.
+The Raspberry Pi hardware is controlled by [config.txt](https://github.com/vertecx/browserscreen-pi-gen/blob/dev/stage1/00-boot-files/files/config.txt). While the file has some basic comments inside, it is extensively documented at the Raspberry Pi [documentation site](https://www.raspberrypi.org/documentation/configuration/config-txt/README.md).
 
- * `APT_PROXY` (Default: unset)
+### Black border or text off the screen edge
+If the picture on the screen has black borders or extends beyond the edges of the screen, the [overscan](https://www.raspberrypi.org/documentation/configuration/raspi-config.md#overscan) settings in config.txt need to be modified.
 
-   If you require the use of an apt proxy, set it here.  This proxy setting
-   will not be included in the image, making it safe to use an `apt-cacher` or
-   similar package for development.
+Black borders can usually be removed by disabling overscan. This is done by changing `#disable_overscan=1` to `disable_overscan=1` in config.txt.
 
-   If you have Docker installed, you can set up a local apt caching proxy to
-   like speed up subsequent builds like this:
+On computer monitors, this usually results in a perfect picture. On TV:s, it may cause the picture to extend beyond the edges of the screen. This can usually be fixed by experimenting with the aspect ratio or similar settings on the TV.
 
-       docker-compose up -d
-       echo 'APT_PROXY=http://172.17.0.1:3142' >> config
+If the TV cannot be configured to show the whole picture, overscan should be reenabled and the overscan_left, right, top and bottom settings adjusted.
 
- * `BASE_DIR`  (Default: location of `build.sh`)
+## Update
+The combination of read only filesystems, disabled keyboard and no SSH server makes keeping Browser Screen up to date using traditional methods like `apt-get dist-upgrade` very inefficient.
 
-   **CAUTION**: Currently, changing this value will probably break build.sh
+Browser Screen is instead updated by writing a newer version of the image to the SD card using the installation procedure. To speed up reconfiguration, copy config.txt and browserscreen.txt from the SD card to your computer before writing the image and copy the back after the image has been written.
 
-   Top-level directory for `pi-gen`.  Contains stage directories, build
-   scripts, and by default both work and deployment directories.
-
- * `WORK_DIR`  (Default: `"$BASE_DIR/work"`)
-
-   Directory in which `pi-gen` builds the target system.  This value can be
-   changed if you have a suitably large, fast storage location for stages to
-   be built and cached.  Note, `WORK_DIR` stores a complete copy of the target
-   system for each build stage, amounting to tens of gigabytes in the case of
-   Raspbian.
-
- * `DEPLOY_DIR`  (Default: `"$BASE_DIR/deploy"`)
-
-   Output directory for target system images and NOOBS bundles.
-
-
-A simple example for building Raspbian:
-
-```bash
-IMG_NAME='Raspbian'
-```
-
-
-## Docker Build
-
-```bash
-vi config         # Edit your config file. See above.
-./build-docker.sh
-```
-
-If everything goes well, your finished image will be in the `deploy/` folder.
-You can then remove the build container with `docker rm -v pigen_work`
-
-If something breaks along the line, you can edit the corresponding scripts, and
-continue:
-
-```bash
-CONTINUE=1 ./build-docker.sh
-```
-
-There is a possibility that even when running from a docker container, the
-installation of `qemu-user-static` will silently fail when building the image
-because `binfmt-support` _must be enabled on the underlying kernel_. An easy
-fix is to ensure `binfmt-support` is installed on the host machine before
-starting the `./build-docker.sh` script (or using your own docker build
-solution).
-
-
-## Stage Anatomy
-
-### Raspbian Stage Overview
-
-The build of Raspbian is divided up into several stages for logical clarity
-and modularity.  This causes some initial complexity, but it simplifies
-maintenance and allows for more easy customization.
-
- - **Stage 0** - bootstrap.  The primary purpose of this stage is to create a
-   usable filesystem.  This is accomplished largely through the use of
-   `debootstrap`, which creates a minimal filesystem suitable for use as a
-   base.tgz on Debian systems.  This stage also configures apt settings and
-   installs `raspberrypi-bootloader` which is missed by debootstrap.  The
-   minimal core is installed but not configured, and the system will not quite
-   boot yet.
-
- - **Stage 1** - truly minimal system.  This stage makes the system bootable by
-   installing system files like `/etc/fstab`, configures the bootloader, makes
-   the network operable, and installs packages like raspi-config.  At this
-   stage the system should boot to a local console from which you have the
-   means to perform basic tasks needed to configure and install the system.
-   This is as minimal as a system can possibly get, and its arguably not
-   really usable yet in a traditional sense yet.  Still, if you want minimal,
-   this is minimal and the rest you could reasonably do yourself as sysadmin.
-
- - **Stage 2** - lite system.  This stage produces the Raspbian-Lite image.  It
-   installs some optimized memory functions, sets timezone and charmap
-   defaults, installs fake-hwclock and ntp, wifi and bluetooth support,
-   dphys-swapfile, and other basics for managing the hardware.  It also
-   creates necessary groups and gives the pi user access to sudo and the
-   standard console hardware permission groups.
-
-   There are a few tools that may not make a whole lot of sense here for
-   development purposes on a minimal system such as basic python and lua
-   packages as well as the `build-essential` package.  They are lumped right
-   in with more essential packages presently, though they need not be with
-   pi-gen.  These are understandable for Raspbian's target audience, but if
-   you were looking for something between truly minimal and Raspbian-lite,
-   here's where you start trimming.
-
- - **Stage 3** - desktop system.  Here's where you get the full desktop system
-   with X11 and LXDE, web browsers, git for development, Raspbian custom UI
-   enhancements, etc.  This is a base desktop system, with some development
-   tools installed.
-
- - **Stage 4** - Raspbian system meant to fit on a 4GB card.  More development
-   tools, an email client, learning tools like Scratch, specialized packages
-   like sonic-pi, system documentation, office productivity, etc.  This is the
-   stage that installs all of the things that make Raspbian friendly to new
-   users.
-
- - **Stage 5** - The official Raspbian Desktop image. Right now only adds
-   Mathematica.
-
-### Stage specification
-
-If you wish to build up to a specified stage (such as building up to stage 2
-for a lite system), place an empty file named `SKIP` in each of the `./stage`
-directories you wish not to include.
-
-Then remove the `EXPORT*` files from `./stage4` (if building up to stage 2) or
-from `./stage2` (if building a minimal system).
-
-```bash
-# Example for building a lite system
-echo "IMG_NAME='Raspbian'" > config
-touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
-rm stage4/EXPORT*
-sudo ./build.sh  # or ./build-docker.sh
-```
-
-If you wish to build further configurations upon (for example) the lite
-system, you can also delete the contents of `./stage3` and `./stage4` and
-replace with your own contents in the same format.
+To reduce downtime, you can rotate between two SD cards. When an update need to be installed, write the image to the offline SD card and fix your configuration, then go to your Raspberry Pi, pull power, replace the SD card and reinsert power. Using this method, your screen should only be down for around a minute.
