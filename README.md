@@ -32,7 +32,7 @@ See the Raspberry Pi documentation on [Installing operating system images](https
 Browser Screen does not support installation through [NOOBS](https://www.raspberrypi.org/documentation/installation/noobs.md).
 
 ## Configure
-Browser Screen is configured by editing two text files on the small FAT32 partition used to boot the Raspberry Pi.
+Browser Screen is configured by editing two text files on the small FAT32 partition used to boot the Raspberry Pi. The files use Unix line endings. If edited on Windows, a compatible text editor like [Visual Studio Code](https://code.visualstudio.com/) or [Sublime Text](http://www.sublimetext.com/) should be used.
 
 Most settings that need to be customized before Browser Screen is deploy are located inside [browserscreen.txt](https://github.com/vertecx/browserscreen-pi-gen/blob/dev/stage3/02-browserscreen/files/browserscreen.txt). Every setting is documented inside the file.
 
