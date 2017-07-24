@@ -1,0 +1,10 @@
+--- jessie-stage3.orig/rootfs/etc/inputrc
++++ jessie-stage3/rootfs/etc/inputrc
+@@ -67,5 +67,5 @@
+ $endif
+ 
+ # mappings for up and down arrows search history
+-# "\e[B": history-search-forward
+-# "\e[A": history-search-backward
++"\e[B": history-search-forward
++"\e[A": history-search-backward

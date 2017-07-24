@@ -3,3 +3,4 @@
 03-fstab.diff
 04-nodm.diff
 05-system.conf.diff
+06-inputrc.diff
