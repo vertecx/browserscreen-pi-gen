@@ -1,1 +1,2 @@
-xserver-xorg-video-fbdev xserver-xorg xinit xserver-xorg-video-fbturbo
+xserver-xorg-video-fbdev xserver-xorg xserver-xorg-video-fbturbo
+chromium-browser rpi-chromium-mods
