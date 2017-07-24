@@ -1,6 +1,14 @@
 #!/bin/sh
 
-. /boot/browserscreen.txt
+timezone=Europe/Stockholm
+ntp='0.debian.pool.ntp.org 1.debian.pool.ntp.org 2.debian.pool.ntp.org'
+hostname=browserscreen%m
+wifi_network=SE
+wifi_country=''
+
+if [ -f /boot/browserscreen.txt ]; then
+	. /boot/browserscreen.txt
+fi
 
 # === Set timezone
 timedatectl set-timezone $timezone

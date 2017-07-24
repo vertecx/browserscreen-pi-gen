@@ -1,16 +1,19 @@
 --- jessie-stage3.orig/rootfs/etc/init.d/nodm
 +++ jessie-stage3/rootfs/etc/init.d/nodm
-@@ -31,6 +31,15 @@
+@@ -31,6 +31,18 @@
  	. /etc/default/$NAME
  fi
  
++hide_cursor=1
++
 +if [ -f /boot/browserscreen.txt ]
 +then
 +	. /boot/browserscreen.txt
-+	if [ $hide_cursor -eq 1 ]
-+	then
-+		NODM_X_OPTIONS="${NODM_X_OPTIONS} -nocursor"
-+	fi
++fi
++
++if [ $hide_cursor -eq 1 ]
++then
++	NODM_X_OPTIONS="${NODM_X_OPTIONS} -nocursor"
 +fi
 +
  export NODM_XINIT NODM_XSESSION NODM_X_OPTIONS NODM_USER NODM_MIN_SESSION_TIME NODM_FIRST_VT

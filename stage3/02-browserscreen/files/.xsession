@@ -1,6 +1,13 @@
 #!/bin/sh
 
-. /boot/browserscreen.txt
+address=http://www.ptrdata.com/randomdashboard/
+ntp='0.debian.pool.ntp.org 1.debian.pool.ntp.org 2.debian.pool.ntp.org'
+locale=sv_SE.UTF-8
+chromium_args=''
+
+if [ -f /boot/browserscreen.txt ]; then
+	. /boot/browserscreen.txt
+fi
 
 # On Wi-Fi with weak signal, the network connection might not be up when this
 # script is started. Giving the network up to 20 extra seconds to come up
