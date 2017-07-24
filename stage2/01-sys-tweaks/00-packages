@@ -1,5 +1,4 @@
-less fbset sudo psmisc module-init-tools crda
-console-setup keyboard-configuration debconf-utils unzip
-hardlink
+fbset sudo psmisc crda
+console-setup keyboard-configuration
 dosfstools
 raspberrypi-sys-mods

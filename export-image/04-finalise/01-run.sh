@@ -2,10 +2,6 @@
 
 IMG_FILE="${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img"
 
-on_chroot << EOF
-hardlink -t /usr/share/doc
-EOF
-
 if [ -d ${ROOTFS_DIR}/home/pi/.config ]; then
 	chmod 700 ${ROOTFS_DIR}/home/pi/.config
 fi
