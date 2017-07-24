@@ -34,6 +34,12 @@ done
 
 rm -f "${ROOTFS_DIR}/root/.vnc/private.key"
 
+rm -f ${ROOTFS_DIR}/var/lib/apt/lists/*_jessie_*
+
+find ${ROOTFS_DIR}/usr/share/doc -depth -type f ! -name copyright -delete
+find ${ROOTFS_DIR}/usr/share/doc -empty -delete
+rm -rf ${ROOTFS_DIR}/usr/share/man ${ROOTFS_DIR}/usr/share/info ${ROOTFS_DIR}/usr/share/lintian
+
 update_issue $(basename ${EXPORT_DIR})
 install -m 644 ${ROOTFS_DIR}/etc/rpi-issue ${ROOTFS_DIR}/boot/issue.txt
 
