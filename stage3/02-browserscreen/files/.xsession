@@ -1,8 +1,8 @@
 #!/bin/sh
 
-address=http://www.ptrdata.com/randomdashboard/
+address='http://www.ptrdata.com/randomdashboard/'
 ntp='0.debian.pool.ntp.org 1.debian.pool.ntp.org 2.debian.pool.ntp.org'
-locale=sv_SE.UTF-8
+locale='sv_SE.UTF-8'
 chromium_args=''
 
 if [ -f /boot/browserscreen.txt ]; then
@@ -17,7 +17,7 @@ tries=10
 until [ $tries -eq 0 ]; do
 	wget --spider --no-check-certificate --tries=1 "$address" > /dev/null 2>&1 && break
 	sleep 2
-	tries=`expr $tries - 1`
+	tries=$((tries - 1))
 done
 
 # Quickly set the time and date by polling the NTP server once.

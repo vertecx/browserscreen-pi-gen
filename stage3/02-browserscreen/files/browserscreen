@@ -1,9 +1,9 @@
 #!/bin/sh
 
-timezone=Europe/Stockholm
+timezone='Europe/Stockholm'
 ntp='0.debian.pool.ntp.org 1.debian.pool.ntp.org 2.debian.pool.ntp.org'
-hostname=browserscreen%m
-wifi_network=SE
+hostname='browserscreen%m'
+wifi_network='SE'
 wifi_country=''
 
 if [ -f /boot/browserscreen.txt ]; then
@@ -18,17 +18,17 @@ echo "Servers=$ntp" >> /etc/systemd/timesyncd.conf
 timedatectl set-ntp true
 
 # === Set hostname
-old_hostname=`hostname`
+old_hostname=$(hostname)
 
 if [ -z "${hostname##*%m*}" ]; then
 	# Use the last three octets of the MAC address to generate a unique hostname.
-	mac=`ifconfig eth0 | head -n 1 | grep -o '[0-9a-f]' | tail -n 6 | tr -d '\n'`
-	hostname=`echo $hostname | sed "s/%m/$mac/g"`
+	mac=$(ifconfig eth0 | head -n 1 | grep -o '[0-9a-f]' | tail -n 6 | tr -d '\n')
+	hostname=$(echo $hostname | sed "s/%m/$mac/g")
 fi
 
-hostname $hostname
-echo $hostname > /etc/hostname
-sed -i "s/127.0.1.1.*$old_hostname/127.0.1.1\t$hostname/" /etc/hosts
+hostname "$hostname"
+echo "$hostname" > /etc/hostname
+sed -i "s/127.0.1.1.*$old_hostname/127.0.1.1\\t$hostname/" /etc/hosts
 
 # === Set WiFi settings
 if [ -z "$wifi_network" ]; then
@@ -38,8 +38,7 @@ else
 	echo "network={$wifi_network}" >> /etc/wpa_supplicant/wpa_supplicant.conf
 
 	# Workaround for Raspberry Pi 1. wpa_cli throws "Failed to connect to non-global ctrl_ifname: (null) error: No such file or directory" if called without sleeping first.
-	uname -m | grep armv6 > /dev/null
-	if [ $? -eq 0 ]; then
+	if uname -m | grep armv6 > /dev/null; then
 		sleep 5
 	fi
 
